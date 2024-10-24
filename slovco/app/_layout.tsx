@@ -7,10 +7,17 @@ import {
   FrankRuhlLibre_900Black,
 } from "@expo-google-fonts/frank-ruhl-libre";
 import { useEffect } from "react";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { Appearance, useColorScheme } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
   const [fontsLoaded] = useFonts({
     FrankRuhlLibre_800ExtraBold,
     FrankRuhlLibre_500Medium,
@@ -27,9 +34,13 @@ export default function RootLayout() {
     return null;
   }
 
+  //Appearance.setColorScheme("light");
+
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
   );
 }
