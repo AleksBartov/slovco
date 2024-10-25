@@ -5,19 +5,25 @@ import {
   TouchableOpacity,
   useColorScheme,
 } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import Icon from "../assets/images/slovco-icon.svg";
 import { Link } from "expo-router";
 import { Colors } from "@/constants/Colors";
 import ThemedText from "@/components/ThemedText";
 import { format } from "date-fns";
+import SubscribeModal from "@/components/SubscribeModal";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 const Index = () => {
+  const subscribeModalRef = useRef<BottomSheetModal>(null);
   const colorScheme = useColorScheme();
   const backgroundColor = Colors[colorScheme ?? "light"].background;
   const textColor = Colors[colorScheme ?? "light"].text;
+  const handlePresentsSubscribeModal = () =>
+    subscribeModalRef.current?.present();
   return (
     <View style={styles.container}>
+      <SubscribeModal ref={subscribeModalRef} />
       <View style={styles.header}>
         <Icon width={100} height={100} />
         <ThemedText style={styles.title}>Словцо</ThemedText>
@@ -47,6 +53,7 @@ const Index = () => {
           <ThemedText style={styles.btnText}>Войти</ThemedText>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={handlePresentsSubscribeModal}
           style={[
             styles.btn,
             { borderColor: colorScheme === "light" ? "#000" : "#4a4a4a" },
