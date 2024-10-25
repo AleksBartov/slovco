@@ -10,6 +10,7 @@ import Icon from "../assets/images/slovco-icon.svg";
 import { Link } from "expo-router";
 import { Colors } from "@/constants/Colors";
 import ThemedText from "@/components/ThemedText";
+import { format } from "date-fns";
 
 const Index = () => {
   const colorScheme = useColorScheme();
@@ -54,7 +55,13 @@ const Index = () => {
           <ThemedText style={styles.btnText}>Подписаться</ThemedText>
         </TouchableOpacity>
       </View>
-      <View style={styles.footer}></View>
+      <View style={styles.footer}>
+        <ThemedText style={styles.footerDate}>
+          {format(new Date(), "dd.MM.yyyy")}
+        </ThemedText>
+        <ThemedText style={styles.footerText}>№ 1.0.0</ThemedText>
+        <ThemedText style={styles.footerText}>AleksBartov</ThemedText>
+      </View>
     </View>
   );
 };
@@ -101,5 +108,15 @@ const styles = StyleSheet.create({
   primaryText: {
     color: "#fff",
   },
-  footer: {},
+  footer: {
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 2,
+  },
+  footerDate: {
+    fontFamily: "FrankRuhlLibre_500Medium",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  footerText: { fontFamily: "FrankRuhlLibre_500Medium" },
 });
